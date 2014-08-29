@@ -1,4 +1,4 @@
-kooyi (കൂയ്)
+kooy (കൂയ്)
 =====
 
 jQuery Plugin for malayalam phonetic input. Manglish to unicode malayalam convert. 

@@ -2233,7 +2233,8 @@
 				this.tabCount =1;
 				return;
 			}
-			else if (kCode === 32) { //Avoid space key for processing
+			else if (kCode === 32 && this.tabCount > 1) { //Avoid space key for processing
+
 				return true;
 			}			
 			chr = String.fromCharCode(kCode);
