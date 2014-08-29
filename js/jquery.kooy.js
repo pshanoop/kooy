@@ -2226,7 +2226,13 @@
 				curLoc,
 				scrollTop,
 				kCode = event.keyCode || event.which,
-				element = this.widget.get(0);
+				element = this.widget.get(0);										
+
+			// Avoid processing system short key
+			if (event.ctrlKey || event.altKey || event.metaKey) { 
+
+					return true;
+			}
 
 			if(kCode === 8){ //backspace
 				this.patttern = patttern.replace(/aAeEiIoOuU0-9/g,'');
