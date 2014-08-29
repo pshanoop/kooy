@@ -2177,18 +2177,13 @@
 		eventHandlers: function(){	
 
 
-
-			// this.$element.on( 'keypress.ime', $.proxy( this.keypress, this ) );
-			// this.$element.on( 'keyup.ime', $.proxy( this.keyup, this ) );
-			// this.$element.on( 'keydown.ime', $.proxy( this.keydown, this ) );
-			// this.$element.on( 'destroy.ime', $.proxy( this.destroy, this ) );
-			// this.$element.on( 'enable.ime', $.proxy( this.enable, this ) );
-			// this.$element.on( 'disable.ime', $.proxy( this.disable, this ) );
-
-		//keyDown, KeyPress handilers 
+		//keyDown, KeyPress, distroy , enable, disable handilers 
 		// May want to add call back funtion from option
 			this.widget.on( 'keypress.kooyi', $.proxy( this.keyPress, this ) );
 			this.widget.on( 'keydown.kooyi', $.proxy( this.keyDown, this ) );	
+			this.widget.on( 'destroy.kooyi', $.proxy( this.destroy, this ) );
+			this.widget.on( 'enable.kooyi', $.proxy( this.enable, this ) );
+			this.widget.on( 'disable.kooyi', $.proxy( this.disable, this ) );
 		},
 		keyDown: function(event){
 
@@ -2203,18 +2198,24 @@
 
 		},
 		keyPress: function(event){
-			//TODO check enabled 
-			// console.log('keyPress :' + event.keyCode)
+			
+			if(!this.active)
+				return true;
+			
 			return this.transliterate(event);
 		},
-		// TODO functions
-		enable: function(){
+
+		enable: function(){			
+			this.active = true;
 
 		},
-		disable: function(){
 
+		disable: function(){
+			this.active = false;
 		},
 		distroy: function(){
+			$('body').off('.kooyi');
+			this.widget.off('.kooyi').removeData('kooyi');
 
 		},
 		transliterate: function(event){
@@ -2306,11 +2307,11 @@
 			return true;
 		}
 	};
-	$.fn.kooyi = function(options){
+	$.fn.kooyi = function(option){
 		return this.each(function() {			
 			var data, 
 				$this =$(this),
-				options = typeof options === 'object' && options;
+				options = typeof option === 'object' && options;
 
 			data = $this.data('kooyi');
 
@@ -2319,13 +2320,15 @@
 				$this.data('kooyi',data);
 			}
 
-			if( typeof data  === 'string'){
+			if( typeof option  === 'string'){
 				data[option]();
 				console.log(' Data ' + data[option]());
 			}				
 			
 		});
 	};
+
+	// helper funtions 
 
 	function isExplorer(){
 		return (document.selection && document.selection.createRange().isEqual);
