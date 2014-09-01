@@ -8,8 +8,9 @@
 						a2: 'ആ',
 						a3: 'എ',
 						aa: 'ആ',
+						A: 'ആ',  //Added line
 						A2: 'ആ',
-						A3: 'എ',
+						A3: 'എ', 
 						i: 'ഇ',
 						i2: 'ഈ',
 						i3: 'ഐ',
@@ -2166,9 +2167,9 @@
 					};
 	   this.widget = $(element);
 	   this.active = true;
-	   this.patttern = null;
-	   this.patternStart = null;
-	   this.tabCount = null;
+	   this.pattern = null;
+	   this.patternStart = 0;
+	   this.tabCount = 0;
 	   this.eventHandlers();	   
 	}
 
@@ -2193,7 +2194,7 @@
 			var keyCode = event.keyCode || event.which;
 			if(keyCode === 9)
 			{
-				this.KeyPress(event);
+				this.keyPress(event);
 			}				
 
 		},
@@ -2233,10 +2234,15 @@
 
 					return true;
 			}
-
+			pos = element.selectionStart;
 			if(kCode === 8){ //backspace
-				this.patttern = patttern.replace(/aAeEiIoOuU0-9/g,'');
+				// this.pattern = this.pattern.replace(/[aAeEiIoOuU0-9]/g,'');
+				this.pattern = this.pattern.slice(0, -1);
+				
+				this.patternStart = pos;
+				// this.pattern = this.pattern.substr(0, this.pattern.length -1);
 				this.tabCount =1;
+				console.log('Back Pattern :' + this.pattern);
 				return;
 			}
 			else if (kCode === 32 && this.tabCount > 1) { //Avoid space key for processing
@@ -2244,29 +2250,29 @@
 				return true;
 			}			
 			chr = String.fromCharCode(kCode);
-			pos = element.selectionStart;
+			
 			if(kCode === 9){ //Tab key handling 
 				this.tabCount++;
-				if(this.patttern !==null || this.patttern !== ''){
+				if(this.pattern !==null || this.pattern !== ''){
 					if(this.tabCount ===2){
-						this.patttern +=  this.tabCount;						
+						this.pattern +=  this.tabCount;						
 					}
 					else{
-						if(this.charMap[this.patttern.substring(0,this.patttern.length -1)+this.tabCount]){
-							this.patttern = this.patttern.substring(0,this.patttern.length -1) + this.tabCount;
+						if(this.charMap[this.pattern.substring(0,this.pattern.length -1)+this.tabCount]){
+							this.pattern = this.pattern.substring(0,this.pattern.length -1) + this.tabCount;
 						}
 						else{
 							this.tabCount =1;
-							this.patttern = this.patttern.substring(0,this.patttern.length -1);
+							this.pattern = this.pattern.substring(0,this.pattern.length -1);
 						}
 					}
 				}
 			}
 			else {
-				this.patttern = this.patttern + chr;
+				this.pattern = this.pattern + chr;
 			}
-			if(this.patttern.length > 5){
-				this.patttern = '';
+			if(this.pattern.length > 5){
+				this.pattern = '';
 				this.tabCount =1;
 			}
 
@@ -2274,15 +2280,16 @@
 				event.preventDefault();
 			}
 
-			var malChr = this.charMap[this.patttern];
+			var malChr = this.charMap[this.pattern];
 			if(!malChr){
-				this.patttern = chr;
+				this.pattern = chr;
 				this.tabCount = 1;
 				this.patternStart = pos;
-				malChr = this.charMap[this.patttern];
+				malChr = this.charMap[this.pattern];
 
 			}
 
+			console.log('Patter : ' + this.pattern + ' malChr : ' + malChr+ ' ');
 			if(malChr){
 				if(isExplorer()){
 					range = document.selection.createRange();
@@ -2295,7 +2302,7 @@
 				}
 				else{
 					scrollTop = element.scrollTop;
-					curLoc = pos;
+					curLoc = pos; // startSelection
 					stepback = curLoc - this.patternStart;
 					element.value = element.value.substr(0,this.patternStart) 
 											+ malChr

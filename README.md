@@ -10,4 +10,4 @@ malayaaLam --> മലയാളം
 
 xama --> ക്ഷമ
 
-amma --> അമ്മ
+amma --> അമ്മ`
