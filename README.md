@@ -17,10 +17,30 @@ git clone https://github.com/pshanoop/kooy.git
 
 To add kooy support to the textarea of a web page:
 
-```javascript
-$( 'textarea' ).kooy(); // For text area
+```js
+$( 'textarea' ).kooy();
 ```
-jQuery.kooy support all jQuery selector. But kooy plugin will working only on editable fields. 
+
+jQuery.kooy support all jQuery selector. But kooy plugin will working only on editable fields. Kooy plugin adds a class `kooy` to all element when kooy is enabled. So you can add any custom `css` to it to notify user kooy is activated.
+
+#### Disable kooy
+
+```js
+$('textarea').kooy('disable');
+```
+
+#### Enable kooy
+
+By default kooy plugin will be enabled. Call this after disable function call.
+```js
+$('textarea').kooy('enable');
+```
+
+#### Distroy kooy
+
+```js
+$('textarea').kooy('distroy');
+```
 
 Example
 -------

@@ -10,7 +10,7 @@
 						aa: 'ആ',
 						A: 'ആ',  //Added line
 						A2: 'ആ',
-						A3: 'എ', 
+						A3: 'എ', // old value A3:'എ'
 						i: 'ഇ',
 						i2: 'ഈ',
 						i3: 'ഐ',
@@ -2165,12 +2165,15 @@
 						Y: 'വൈ',
 						X: 'എക്സ്'
 					};
-	   this.widget = $(element);
+	   this.widget = $(element);	  
 	   this.active = true;
 	   this.pattern = null;
 	   this.patternStart = 0;
 	   this.tabCount = 0;
-	   this.eventHandlers();	   
+	   this.eventHandlers();	
+
+	   // add class name 
+	   this.widget.addClass('kooy');
 	}
 
 	kooy.prototype = {
@@ -2208,15 +2211,18 @@
 
 		enable: function(){			
 			this.active = true;
+			this.widget.addClass('kooy');
 
 		},
 
 		disable: function(){
 			this.active = false;
+			this.widget.removeClass('kooy');
 		},
 		distroy: function(){
 			$('body').off('.kooy');
 			this.widget.off('.kooy').removeData('kooy');
+			this.widget.removeClass('kooy');
 
 		},
 		transliterate: function(event){
