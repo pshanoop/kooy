@@ -41,6 +41,9 @@ $('textarea').kooy('enable');
 ```js
 $('textarea').kooy('distroy');
 ```
+#### Toggle kooy
+
+Toggle short key is `Ctrl + m` or `Ctrl + M`. You can modify this by changing function `isShortKey`.
 
 Example
 -------

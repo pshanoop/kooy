@@ -2202,6 +2202,12 @@
 
 		},
 		keyPress: function(event){
+
+			if(this.isShortKey(event)){
+
+				this.active = !this.active;
+				this.widget.toggleClass('kooy');
+			}
 			
 			if(!this.active)
 				return true;
@@ -2225,6 +2231,10 @@
 			this.widget.removeClass('kooy');
 
 		},
+		isShortKey:function(event){
+			var kCode = event.keyCode || event.which;			
+			return ((kCode === 77 ||kCode === 109)&& event.ctrlKey); //Ctlr + m / M
+		},	
 		transliterate: function(event){
 			var stepback,
 				pos,
@@ -2353,5 +2363,7 @@
 	function isExplorer(){
 		return (document.selection && document.selection.createRange().isEqual);
 	}
+
+
 
 }(jQuery));
