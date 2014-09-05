@@ -5,8 +5,7 @@ jQuery.kooy is a jQuery based input method library for malayalam phonetic input.
 
 Most of the code of this plugin is adapted from [`swanalekha-ml.js`](https://github.com/smc/input-methods/tree/master/swanalekha-js) which developed by [Santhosh Thottingal](https://github.com/santhoshtr). 
 
-This plugin is completely deployed on [vanmaram](http://www.vanmaram.com) online malayalam dictory. 
-
+This plugin is completely deployed on [vanmaram](http://www.vanmaram.com) online malayalam dictiory. 
 
 Quick start
 -----------
